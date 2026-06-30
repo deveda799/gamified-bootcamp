@@ -1,17 +1,17 @@
 import { BottomNav } from "@/components/student/BottomNav";
-import { requirePageUser } from "@/lib/composition/request";
+import { MockMvpProvider } from "@/components/student/MockMvpProvider";
 
-export default async function StudentLayout({
+export default function StudentLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  await requirePageUser();
-
   return (
-    <main className="min-h-screen bg-warm pb-24">
-      <div className="mx-auto max-w-md px-4 py-5">{children}</div>
-      <BottomNav />
-    </main>
+    <MockMvpProvider>
+      <main className="min-h-screen pb-28">
+        <div className="mx-auto max-w-md px-4 py-5">{children}</div>
+        <BottomNav />
+      </main>
+    </MockMvpProvider>
   );
 }

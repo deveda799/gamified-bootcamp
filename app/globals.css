@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  color: #18231b;
-  background: #f5f7f2;
+  color: #172033;
+  background: #f7f7ff;
 }
 
 * {
@@ -14,12 +14,16 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f5f7f2;
-  color: #18231b;
+  background:
+    radial-gradient(circle at top left, rgba(139, 92, 246, 0.12), transparent 32rem),
+    linear-gradient(180deg, #fbfbff 0%, #f4f6ff 100%);
+  color: #172033;
+  font-family:
+    Inter, "PingFang SC", "Microsoft YaHei", system-ui, -apple-system,
+    sans-serif;
 }
 
 a {
   color: inherit;
   text-decoration: none;
 }
-
