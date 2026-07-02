@@ -3,7 +3,8 @@
 set -Eeuo pipefail
 
 readonly APP_NAME="gamified-bootcamp"
-readonly REPO_URL="git@github.com:deveda799/gamified-bootcamp.git"
+readonly REPO_SSH_URL="git@github.com:deveda799/gamified-bootcamp.git"
+readonly REPO_HTTPS_URL="https://github.com/deveda799/gamified-bootcamp.git"
 readonly APP_ROOT="/opt/${APP_NAME}"
 readonly APP_DIR="${APP_ROOT}/current"
 readonly PUBLIC_IP="${PUBLIC_IP:-175.178.174.40}"
@@ -20,7 +21,9 @@ fi
 DEPLOY_HOME="$(getent passwd "${DEPLOY_USER}" | cut -d: -f6)"
 readonly DEPLOY_USER DEPLOY_HOME
 readonly DEPLOY_KEY="${DEPLOY_HOME}/.ssh/gamified_bootcamp_deploy"
+readonly TOKEN_FILE="${DEPLOY_HOME}/.config/gamified-bootcamp/github-token"
 readonly GIT_SSH_COMMAND_VALUE="ssh -i ${DEPLOY_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+readonly GIT_TOKEN_HELPER='!f() { echo username=x-access-token; echo password=$GITHUB_TOKEN; }; f'
 
 log() {
   printf '\n[%s] %s\n' "$(date '+%H:%M:%S')" "$*"
@@ -39,11 +42,25 @@ run_as_deploy() {
   fi
 }
 
+git_with_auth() {
+  if [[ -f "${TOKEN_FILE}" ]]; then
+    local github_token
+    github_token="$(<"${TOKEN_FILE}")"
+    [[ -n "${github_token}" ]] || fail "GitHub Token 文件为空：${TOKEN_FILE}"
+    run_as_deploy env GITHUB_TOKEN="${github_token}" \
+      git -c credential.helper="${GIT_TOKEN_HELPER}" "$@"
+  else
+    run_as_deploy env GIT_SSH_COMMAND="${GIT_SSH_COMMAND_VALUE}" git "$@"
+  fi
+}
+
 trap 'fail "部署在第 ${LINENO} 行失败，请保留以上日志。"' ERR
 
 [[ -n "${DEPLOY_HOME}" ]] || fail "找不到部署用户 ${DEPLOY_USER}。"
-[[ -f "${DEPLOY_KEY}" ]] || fail "缺少 Deploy Key：${DEPLOY_KEY}"
-[[ -f "${DEPLOY_KEY}.pub" ]] || fail "缺少 Deploy Key 公钥：${DEPLOY_KEY}.pub"
+if [[ ! -f "${TOKEN_FILE}" ]]; then
+  [[ -f "${DEPLOY_KEY}" ]] || fail "缺少 GitHub Token 文件或 Deploy Key。"
+  [[ -f "${DEPLOY_KEY}.pub" ]] || fail "缺少 Deploy Key 公钥：${DEPLOY_KEY}.pub"
+fi
 
 log "安装 Git、Nginx、UFW 和 Node.js ${NODE_MAJOR} LTS"
 export DEBIAN_FRONTEND=noninteractive
@@ -63,14 +80,21 @@ node --version | grep -q "^v${NODE_MAJOR}\." ||
 log "准备应用目录并从 GitHub 同步 main 分支"
 "${SUDO[@]}" install -d -o "${DEPLOY_USER}" -g "${DEPLOY_USER}" "${APP_ROOT}"
 "${SUDO[@]}" install -d -o "${DEPLOY_USER}" -g "${DEPLOY_USER}" /var/log/gamified-bootcamp
-"${SUDO[@]}" chmod 600 "${DEPLOY_KEY}"
+if [[ -f "${TOKEN_FILE}" ]]; then
+  "${SUDO[@]}" chown "${DEPLOY_USER}:${DEPLOY_USER}" "${TOKEN_FILE}"
+  "${SUDO[@]}" chmod 600 "${TOKEN_FILE}"
+else
+  "${SUDO[@]}" chmod 600 "${DEPLOY_KEY}"
+fi
 
 if [[ -d "${APP_DIR}/.git" ]]; then
-  run_as_deploy env GIT_SSH_COMMAND="${GIT_SSH_COMMAND_VALUE}" \
-    git -C "${APP_DIR}" pull --ff-only origin main
+  git_with_auth -C "${APP_DIR}" pull --ff-only origin main
 else
-  run_as_deploy env GIT_SSH_COMMAND="${GIT_SSH_COMMAND_VALUE}" \
-    git clone --branch main --single-branch "${REPO_URL}" "${APP_DIR}"
+  if [[ -f "${TOKEN_FILE}" ]]; then
+    git_with_auth clone --branch main --single-branch "${REPO_HTTPS_URL}" "${APP_DIR}"
+  else
+    git_with_auth clone --branch main --single-branch "${REPO_SSH_URL}" "${APP_DIR}"
+  fi
 fi
 
 [[ -f "${APP_DIR}/package.json" ]] || fail "GitHub 项目中缺少 package.json。"
