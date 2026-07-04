@@ -1,21 +1,21 @@
 "use client";
 
-import { useMockMvp } from "@/components/student/MockMvpProvider";
-import { badges, getLevel, leaderboard } from "@/lib/mockData";
+import { useMvp } from "@/components/student/ServerMvpProvider";
+import { badges, getLevel } from "@/lib/mockData";
+import { useEffect } from "react";
 
 export default function GrowthPage() {
-  const { progress } = useMockMvp();
+  const { progress, student, leaderboard, refreshLeaderboard } = useMvp();
   const level = getLevel(progress.points);
-  const ranking = leaderboard
-    .map((entry) =>
-      entry.name === "你" ? { ...entry, points: progress.points } : entry
-    )
-    .sort((a, b) => b.points - a.points);
+
+  useEffect(() => {
+    void refreshLeaderboard();
+  }, [refreshLeaderboard]);
 
   return (
     <div className="space-y-5">
       <header className="rounded-[28px] bg-gradient-to-br from-violet-600 to-blue-500 p-6 text-white shadow-lg shadow-violet-200">
-        <p className="text-sm font-medium text-white/75">我的成长</p>
+        <p className="text-sm font-medium text-white/75">{student.nickname} 的成长</p>
         <div className="mt-4 flex items-end justify-between">
           <div>
             <p className="text-4xl font-black">{progress.points}</p>
@@ -25,20 +25,6 @@ export default function GrowthPage() {
             {level.name}
           </span>
         </div>
-        {level.nextAt ? (
-          <div className="mt-5">
-            <div className="mb-2 flex justify-between text-xs text-white/70">
-              <span>升级进度</span>
-              <span>还差 {level.nextAt - progress.points} 分</span>
-            </div>
-            <div className="h-2 overflow-hidden rounded-full bg-white/20">
-              <div
-                className="h-full rounded-full bg-white"
-                style={{ width: `${(progress.points / level.nextAt) * 100}%` }}
-              />
-            </div>
-          </div>
-        ) : null}
       </header>
 
       <section>
@@ -76,19 +62,19 @@ export default function GrowthPage() {
       <section className="rounded-2xl bg-white p-5 shadow-sm">
         <h2 className="text-lg font-black text-slate-900">本期排行榜</h2>
         <div className="mt-4 space-y-3">
-          {ranking.map((entry, index) => (
+          {leaderboard.map((entry, index) => (
             <div
               className={`flex items-center rounded-xl p-3 ${
-                entry.name === "你" ? "bg-violet-50" : "bg-slate-50"
+                entry.nickname === student.nickname ? "bg-violet-50" : "bg-slate-50"
               }`}
-              key={entry.name}
+              key={entry.nickname}
             >
               <span className="w-7 text-sm font-black text-slate-400">
                 {index + 1}
               </span>
-              <span className="text-2xl">{entry.avatar}</span>
+              <span className="text-2xl">👤</span>
               <span className="ml-3 flex-1 text-sm font-bold text-slate-700">
-                {entry.name}
+                {entry.nickname}
               </span>
               <span className="text-sm font-black text-violet-600">
                 {entry.points} 分

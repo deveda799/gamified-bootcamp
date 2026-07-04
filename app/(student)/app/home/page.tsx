@@ -1,12 +1,12 @@
 "use client";
 
-import { useMockMvp } from "@/components/student/MockMvpProvider";
+import { useMvp } from "@/components/student/ServerMvpProvider";
 import { Card } from "@/components/ui/Card";
 import { camp, getCurrentLesson, getLevel } from "@/lib/mockData";
 import Link from "next/link";
 
 export default function StudentHomePage() {
-  const { progress, checkIn } = useMockMvp();
+  const { progress, checkIn } = useMvp();
   const level = getLevel(progress.points);
   const currentLesson = getCurrentLesson(progress);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMockMvp } from "@/components/student/MockMvpProvider";
+import { useMvp } from "@/components/student/ServerMvpProvider";
 import { getLessonStatus, lessons } from "@/lib/mockData";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ const statusCopy = {
 };
 
 export default function CoursePage() {
-  const { progress } = useMockMvp();
+  const { progress } = useMvp();
 
   return (
     <div className="space-y-5">

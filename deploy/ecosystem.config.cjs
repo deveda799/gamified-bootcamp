@@ -17,7 +17,8 @@ module.exports = {
       env: {
         NODE_ENV: "production",
         PORT: "3000",
-        HOSTNAME: "127.0.0.1"
+        HOSTNAME: "127.0.0.1",
+        SQLITE_PATH: "/opt/gamified-bootcamp/data/app.sqlite"
       },
       out_file: "/var/log/gamified-bootcamp/out.log",
       error_file: "/var/log/gamified-bootcamp/error.log",

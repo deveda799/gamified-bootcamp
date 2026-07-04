@@ -1,6 +1,6 @@
 "use client";
 
-import { useMockMvp } from "@/components/student/MockMvpProvider";
+import { useMvp } from "@/components/student/ServerMvpProvider";
 import { getLessonById } from "@/lib/mockData";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -9,7 +9,7 @@ import { useState, type FormEvent } from "react";
 export default function SubmitPage() {
   const { lessonId } = useParams<{ lessonId: string }>();
   const lesson = getLessonById(lessonId);
-  const { progress, submitLesson } = useMockMvp();
+  const { progress, submitLesson } = useMvp();
   const [text, setText] = useState("");
   const [link, setLink] = useState("");
   const [submitted, setSubmitted] = useState(
@@ -20,9 +20,9 @@ export default function SubmitPage() {
     return <p className="py-20 text-center text-slate-500">课程不存在</p>;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    submitLesson(lessonId);
+    await submitLesson(lessonId, text, link);
     setSubmitted(true);
   }
 

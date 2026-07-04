@@ -14,30 +14,46 @@ function pageFiles(root: string): string[] {
   });
 }
 
-test("student H5 keeps only the five MVP pages", () => {
+test("student H5 keeps all required MVP pages", () => {
   const pages = pageFiles("app").filter((path) => path !== "app/page.tsx");
 
-  assert.deepEqual(pages.sort(), [
+  const requiredPages = [
     "app/(student)/app/course/[lessonId]/page.tsx",
     "app/(student)/app/course/page.tsx",
     "app/(student)/app/growth/page.tsx",
     "app/(student)/app/home/page.tsx",
-    "app/(student)/app/submit/[lessonId]/page.tsx"
-  ]);
+    "app/(student)/app/submit/[lessonId]/page.tsx",
+    "app/login/page.tsx",
+    "app/admin/login/page.tsx",
+    "app/admin/page.tsx"
+  ];
+
+  for (const page of requiredPages) {
+    assert.ok(pages.includes(page), `${page} must exist`);
+  }
 });
 
-test("H5 MVP exposes no API route handlers", () => {
+test("SQLite MVP exposes the required server route handlers", () => {
   const routeFiles = readdirSync("app", { recursive: true })
     .map(String)
-    .filter((path) => path.replaceAll("\\", "/").endsWith("/route.ts"));
+    .map((path) => path.replaceAll("\\", "/"))
+    .filter((path) => path.endsWith("/route.ts"));
 
-  assert.deepEqual(routeFiles, []);
+  for (const route of [
+    "api/session/route.ts",
+    "api/progress/route.ts",
+    "api/check-ins/route.ts",
+    "api/submissions/route.ts",
+    "api/leaderboard/route.ts",
+    "api/admin/session/route.ts"
+  ]) {
+    assert.ok(routeFiles.includes(route), `${route} must exist`);
+  }
 });
 
 test("root renders the student home without a redirect response", () => {
   const source = readFileSync("app/page.tsx", "utf8");
 
   assert.doesNotMatch(source, /redirect\(/);
-  assert.match(source, /StudentLayout/);
-  assert.match(source, /StudentHomePage/);
+  assert.match(source, /NicknameLoginForm/);
 });
