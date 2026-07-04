@@ -1,5 +1,6 @@
 .next
 .worktrees/
+.pnpm-store/
 node_modules
 .env
 .env.*
