@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readdirSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 
@@ -32,4 +32,12 @@ test("H5 MVP exposes no API route handlers", () => {
     .filter((path) => path.replaceAll("\\", "/").endsWith("/route.ts"));
 
   assert.deepEqual(routeFiles, []);
+});
+
+test("root renders the student home without a redirect response", () => {
+  const source = readFileSync("app/page.tsx", "utf8");
+
+  assert.doesNotMatch(source, /redirect\(/);
+  assert.match(source, /StudentLayout/);
+  assert.match(source, /StudentHomePage/);
 });

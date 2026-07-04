@@ -1,6 +1,10 @@
-import { redirect } from "next/navigation";
+import StudentLayout from "./(student)/app/layout";
+import StudentHomePage from "./(student)/app/home/page";
 
 export default function Page() {
-  redirect("/app/home");
+  return (
+    <StudentLayout>
+      <StudentHomePage />
+    </StudentLayout>
+  );
 }
-
