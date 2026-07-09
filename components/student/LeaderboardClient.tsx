@@ -27,7 +27,7 @@ export function LeaderboardClient() {
         }
         setItems(result.data.items);
       })
-      .catch(() => setError("排行榜加载失败"))
+      .catch(() => setError("英雄榜加载失败"))
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -37,4 +37,3 @@ export function LeaderboardClient() {
 
   return <LeaderboardList items={items} />;
 }
-

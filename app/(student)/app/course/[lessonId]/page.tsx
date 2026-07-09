@@ -17,7 +17,7 @@ export default async function LessonPage({
     <div className="space-y-5">
       <header className="rounded-[28px] bg-gradient-to-br from-violet-600 to-blue-500 p-6 text-white">
         <p className="text-sm font-bold text-white/70">
-          DAY {String(lesson.day).padStart(2, "0")}
+          DAY {String(lesson.day).padStart(2, "0")} · 今日关卡
         </p>
         <h1 className="mt-3 text-2xl font-bold leading-tight">{lesson.title}</h1>
         <p className="mt-3 text-sm leading-6 text-white/80">{lesson.summary}</p>
@@ -25,7 +25,16 @@ export default async function LessonPage({
 
       <Card className="p-5">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-violet-500">
-          今日课程
+          今日升级目标
+        </p>
+        <p className="mt-3 text-sm font-medium leading-7 text-slate-700">
+          {lesson.levelGoal}
+        </p>
+      </Card>
+
+      <Card className="p-5">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-violet-500">
+          课程内容
         </p>
         <div className="mt-4 space-y-4">
           {lesson.content.map((paragraph, index) => (
@@ -41,10 +50,22 @@ export default async function LessonPage({
 
       <Card className="border border-blue-100 bg-blue-50/70 p-5">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-500">
-          今日作业
+          今日闯关任务
         </p>
         <p className="mt-3 text-sm font-medium leading-7 text-slate-700">
-          {lesson.assignment}
+          {lesson.task}
+        </p>
+      </Card>
+
+      <Card className="border border-violet-100 bg-violet-50/70 p-5">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-violet-500">
+          今日解锁成就
+        </p>
+        <p className="mt-3 text-sm font-black text-slate-800">
+          {lesson.achievement} · {lesson.experience}
+        </p>
+        <p className="mt-3 text-sm leading-7 text-slate-600">
+          {lesson.assetTip}
         </p>
       </Card>
 
@@ -52,7 +73,7 @@ export default async function LessonPage({
         className="flex min-h-14 items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 to-blue-500 px-5 font-bold text-white shadow-lg shadow-violet-200"
         href={`/app/submit/${lesson.id}`}
       >
-        作业打卡
+        提交闯关任务
       </Link>
     </div>
   );

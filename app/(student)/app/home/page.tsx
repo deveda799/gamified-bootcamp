@@ -15,11 +15,11 @@ export default function StudentHomePage() {
       <section className="overflow-hidden rounded-[28px] bg-gradient-to-br from-violet-600 via-indigo-600 to-blue-500 p-6 text-white shadow-lg shadow-violet-200">
         <p className="text-sm font-medium text-white/75">{camp.name}</p>
         <h1 className="mt-3 text-2xl font-bold leading-tight">
-          嗨，今天先完成
+          别再只会问AI了
           <br />
-          一个关键行动 ✨
+          开始打造你的AI人生操作系统
         </h1>
-        <p className="mt-3 text-sm text-white/80">{camp.greeting}</p>
+        <p className="mt-3 text-sm text-white/80">{camp.subtitle}</p>
         <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/20">
           <div
             className="h-full rounded-full bg-white"
@@ -36,13 +36,16 @@ export default function StudentHomePage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-violet-500">
-              今日任务
+              今日升级任务
             </p>
             <h2 className="mt-2 text-xl font-bold text-slate-900">
-              Day {currentLesson.day} · {currentLesson.title}
+              {camp.todayTaskTitle}
             </h2>
             <p className="mt-2 text-sm leading-6 text-slate-500">
-              {currentLesson.summary}
+              Day {currentLesson.day} · {currentLesson.title}
+            </p>
+            <p className="mt-1 text-sm leading-6 text-slate-500">
+              {camp.todayTaskDescription}
             </p>
           </div>
           <span className="ml-3 rounded-2xl bg-violet-100 p-3 text-2xl">🎯</span>
@@ -51,13 +54,13 @@ export default function StudentHomePage() {
           className="mt-5 flex min-h-12 items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 to-blue-500 px-5 font-bold text-white shadow-md shadow-violet-200"
           href={`/app/course/${currentLesson.id}`}
         >
-          去完成今日任务
+          进入今日关卡
         </Link>
       </Card>
 
       <div className="grid grid-cols-2 gap-3">
         <Card className="border border-blue-50 p-5">
-          <p className="text-sm text-slate-500">当前积分</p>
+          <p className="text-sm text-slate-500">当前经验值</p>
           <p className="mt-2 text-3xl font-black text-blue-600">
             {progress.points}
           </p>
@@ -71,9 +74,9 @@ export default function StudentHomePage() {
       <Card className="flex items-center justify-between border border-amber-100 bg-amber-50/70 p-5">
         <div>
           <p className="font-bold text-slate-900">
-            {progress.checkedInToday ? "今日已签到" : "别忘了今日签到"}
+            {progress.checkedInToday ? "今日已签到" : "今日签到"}
           </p>
-          <p className="mt-1 text-sm text-slate-500">签到可获得 +5 积分</p>
+          <p className="mt-1 text-sm text-slate-500">{camp.checkInDescription}</p>
         </div>
         <button
           className={`min-h-11 rounded-xl px-4 text-sm font-bold ${
@@ -94,13 +97,13 @@ export default function StudentHomePage() {
           className="flex min-h-14 items-center justify-center rounded-2xl border border-violet-200 bg-white font-bold text-violet-700"
           href="/app/course"
         >
-          去学习
+          关卡地图
         </Link>
         <Link
           className="flex min-h-14 items-center justify-center rounded-2xl bg-slate-900 font-bold text-white"
           href={`/app/submit/${currentLesson.id}`}
         >
-          去交作业
+          提交闯关任务
         </Link>
       </div>
     </div>

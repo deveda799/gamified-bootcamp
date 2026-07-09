@@ -13,7 +13,7 @@ test("maps student home data into the frozen V1 home contract", () => {
     checkedInToday: false,
     nextLessonId: "lesson-1",
     nextLessonTitle: "认识人生操作系统",
-    latestBadgeName: "觉醒者徽章"
+    latestBadgeName: "觉醒者"
   });
 
   assert.equal(result.camp.id, "camp-1");
@@ -21,6 +21,5 @@ test("maps student home data into the frozen V1 home contract", () => {
   assert.equal(result.score.levelName, "探索者");
   assert.equal(result.today.checkedIn, false);
   assert.equal(result.today.primaryAction.href, "/app/course/lesson-1");
-  assert.equal(result.badges.latest?.name, "觉醒者徽章");
+  assert.equal(result.badges.latest?.name, "觉醒者");
 });
-

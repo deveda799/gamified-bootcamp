@@ -43,7 +43,7 @@ export function BadgeWallClient() {
 
   return (
     <Card>
-      <h2 className="font-bold text-forest">我的徽章墙</h2>
+      <h2 className="font-bold text-forest">我的成就墙</h2>
       <p className="mt-2 text-sm text-muted">已获得 {earned.length} 枚</p>
       <div className="mt-4 grid grid-cols-2 gap-3">
         {[...earned, ...locked].map((badge) => (

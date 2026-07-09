@@ -1,7 +1,7 @@
 "use client";
 
 import { useMvp } from "@/components/student/ServerMvpProvider";
-import { getLessonStatus, lessons } from "@/lib/mockData";
+import { camp, getLessonStatus, lessons } from "@/lib/mockData";
 import Link from "next/link";
 
 const statusCopy = {
@@ -16,9 +16,9 @@ export default function CoursePage() {
   return (
     <div className="space-y-5">
       <header className="rounded-[28px] bg-gradient-to-r from-violet-600 to-blue-500 p-6 text-white">
-        <p className="text-sm font-medium text-white/75">14 天成长路径</p>
-        <h1 className="mt-2 text-2xl font-bold">每天前进一小步</h1>
-        <p className="mt-2 text-sm text-white/75">完成今日课程后解锁下一天</p>
+        <p className="text-sm font-medium text-white/75">{camp.pathTitle}</p>
+        <h1 className="mt-2 text-2xl font-bold">关卡地图</h1>
+        <p className="mt-2 text-sm text-white/75">{camp.pathSubtitle}</p>
       </header>
 
       <div className="space-y-3">

@@ -9,7 +9,7 @@ type Lesson = {
 
 const statusLabel = {
   not_started: "未开始",
-  in_progress: "学习中",
+  in_progress: "闯关中",
   completed: "已完成"
 };
 

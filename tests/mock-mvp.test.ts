@@ -36,7 +36,7 @@ test("submitting a lesson adds points once and completes the lesson", () => {
 });
 
 test("level is derived from current points", () => {
-  assert.equal(getLevel(0).name, "Lv.1 新芽");
-  assert.equal(getLevel(128).name, "Lv.2 探索者");
-  assert.equal(getLevel(220).name, "Lv.3 行动派");
+  assert.equal(getLevel(0).name, "Lv1 新芽");
+  assert.equal(getLevel(128).name, "Lv2 探索者");
+  assert.equal(getLevel(220).name, "Lv3 架构师");
 });

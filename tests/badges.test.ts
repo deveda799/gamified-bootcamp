@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { getEarnedBadgeNames } from "../lib/domain/badges.ts";
 
-test("awards 坚持王 after seven check-in days", () => {
+test("awards 飞轮启动者 after seven check-in days", () => {
   const result = getEarnedBadgeNames({
     totalPoints: 20,
     checkInDays: 7,
@@ -10,7 +10,7 @@ test("awards 坚持王 after seven check-in days", () => {
     submittedAssignments: 1
   });
 
-  assert.ok(result.includes("坚持王"));
+  assert.ok(result.includes("飞轮启动者"));
 });
 
 test("does not award V1 backlog badges outside frozen criteria", () => {
@@ -23,4 +23,3 @@ test("does not award V1 backlog badges outside frozen criteria", () => {
 
   assert.deepEqual(result, []);
 });
-

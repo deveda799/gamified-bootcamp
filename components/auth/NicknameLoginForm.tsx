@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { camp } from "@/lib/mockData";
 
 export function NicknameLoginForm() {
   const router = useRouter();
@@ -37,10 +38,10 @@ export function NicknameLoginForm() {
     <div className="mx-auto flex min-h-screen max-w-md items-center px-5 py-10">
       <div className="w-full rounded-[28px] bg-white p-6 shadow-xl shadow-violet-100">
         <div className="rounded-3xl bg-gradient-to-br from-violet-600 to-blue-500 p-6 text-white">
-          <p className="text-sm text-white/75">14 天游戏化成长训练营</p>
-          <h1 className="mt-2 text-3xl font-black">欢迎回来</h1>
+          <p className="text-sm text-white/75">{camp.name}</p>
+          <h1 className="mt-2 text-3xl font-black">{camp.headline}</h1>
           <p className="mt-3 text-sm text-white/80">
-            输入首次使用的昵称，即可继续你的成长记录。
+            {camp.subtitle}
           </p>
         </div>
 
@@ -65,7 +66,7 @@ export function NicknameLoginForm() {
             disabled={pending}
             type="submit"
           >
-            {pending ? "登录中…" : "进入训练营"}
+            {pending ? "登录中…" : "进入我的玩家基地"}
           </button>
         </form>
       </div>

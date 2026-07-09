@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const routes = [
   { href: "/app/home", label: "首页", icon: "⌂" },
-  { href: "/app/course", label: "课程", icon: "▤" },
+  { href: "/app/course", label: "关卡", icon: "▤" },
   { href: "/app/growth", label: "成长", icon: "✦" }
 ];
 

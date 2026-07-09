@@ -107,7 +107,7 @@ test("returns new badge names when check-in reaches badge criteria", async () =>
     repository
   });
 
-  assert.deepEqual(result.newBadges, ["坚持王"]);
+  assert.deepEqual(result.newBadges, ["飞轮启动者"]);
   assert.equal(calls.awardBadge, 1);
 });
 
@@ -128,4 +128,3 @@ test("throws a clear error when user has no active enrollment", async () => {
     /NO_ACTIVE_ENROLLMENT/
   );
 });
-

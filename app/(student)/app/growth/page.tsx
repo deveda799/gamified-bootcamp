@@ -1,7 +1,7 @@
 "use client";
 
 import { useMvp } from "@/components/student/ServerMvpProvider";
-import { badges, getLevel } from "@/lib/mockData";
+import { badges, camp, getLevel } from "@/lib/mockData";
 import { useEffect } from "react";
 
 export default function GrowthPage() {
@@ -19,7 +19,7 @@ export default function GrowthPage() {
         <div className="mt-4 flex items-end justify-between">
           <div>
             <p className="text-4xl font-black">{progress.points}</p>
-            <p className="mt-1 text-sm text-white/75">累计积分</p>
+            <p className="mt-1 text-sm text-white/75">累计经验值</p>
           </div>
           <span className="rounded-full bg-white/20 px-4 py-2 text-sm font-bold">
             {level.name}
@@ -29,7 +29,7 @@ export default function GrowthPage() {
 
       <section>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-black text-slate-900">徽章墙</h2>
+          <h2 className="text-lg font-black text-slate-900">成就墙</h2>
           <span className="text-sm text-slate-400">
             {badges.filter((badge) => progress.points >= badge.requirement).length}/
             {badges.length}
@@ -60,7 +60,7 @@ export default function GrowthPage() {
       </section>
 
       <section className="rounded-2xl bg-white p-5 shadow-sm">
-        <h2 className="text-lg font-black text-slate-900">本期排行榜</h2>
+        <h2 className="text-lg font-black text-slate-900">本期英雄榜</h2>
         <div className="mt-4 space-y-3">
           {leaderboard.map((entry, index) => (
             <div
@@ -77,10 +77,24 @@ export default function GrowthPage() {
                 {entry.nickname}
               </span>
               <span className="text-sm font-black text-violet-600">
-                {entry.points} 分
+                {entry.points} 经验值
               </span>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="rounded-2xl bg-gradient-to-br from-slate-900 to-violet-900 p-5 text-white shadow-lg shadow-violet-100">
+        <p className="text-sm font-semibold text-white/70">毕业后继续升级</p>
+        <h2 className="mt-2 text-xl font-black">{camp.graduationTitle}</h2>
+        <p className="mt-3 text-sm leading-6 text-white/75">
+          {camp.graduationSubtitle}
+        </p>
+        <div className="mt-4 rounded-2xl bg-white/10 p-4">
+          <p className="font-bold">{camp.upsellTitle}</p>
+          <p className="mt-2 text-sm leading-6 text-white/75">
+            {camp.upsellDescription}
+          </p>
         </div>
       </section>
     </div>

@@ -15,7 +15,7 @@ export default async function AdminPage() {
   return (
     <div className="mx-auto max-w-5xl p-5">
       <header className="rounded-3xl bg-slate-900 p-6 text-white">
-        <p className="text-sm text-white/60">游戏化训练营</p>
+        <p className="text-sm text-white/60">AI人生操作系统创造营</p>
         <h1 className="mt-2 text-2xl font-black">学员数据后台</h1>
         <p className="mt-2 text-sm text-white/70">共 {students.length} 名学员</p>
       </header>
@@ -24,7 +24,7 @@ export default async function AdminPage() {
           <thead className="bg-slate-50 text-slate-500">
             <tr>
               <th className="p-4">昵称</th>
-              <th className="p-4">积分</th>
+              <th className="p-4">经验值</th>
               <th className="p-4">签到次数</th>
               <th className="p-4">作业数</th>
               <th className="p-4">加入时间</th>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMvp } from "@/components/student/ServerMvpProvider";
-import { getLessonById } from "@/lib/mockData";
+import { camp, getLessonById } from "@/lib/mockData";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
@@ -33,7 +33,7 @@ export default function SubmitPage() {
           ✓
         </div>
         <h1 className="mt-6 text-3xl font-black text-slate-900">打卡成功</h1>
-        <p className="mt-3 text-slate-500">成长记录已保存，积分已更新</p>
+        <p className="mt-3 text-slate-500">打卡成功，经验值已更新</p>
         <Link
           className="mt-8 flex min-h-12 w-full items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 to-blue-500 font-bold text-white"
           href="/app/growth"
@@ -47,11 +47,12 @@ export default function SubmitPage() {
   return (
     <div className="space-y-5">
       <header>
-        <p className="text-sm font-bold text-violet-500">DAY {lesson.day} 作业</p>
-        <h1 className="mt-2 text-2xl font-black text-slate-900">完成今日打卡</h1>
+        <p className="text-sm font-bold text-violet-500">DAY {lesson.day} 闯关任务</p>
+        <h1 className="mt-2 text-2xl font-black text-slate-900">提交闯关任务</h1>
         <p className="mt-2 text-sm leading-6 text-slate-500">
-          {lesson.assignment}
+          {camp.assignmentDescription}
         </p>
+        <p className="mt-2 text-sm leading-6 text-slate-500">{lesson.assignment}</p>
       </header>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
@@ -91,7 +92,7 @@ export default function SubmitPage() {
           className="min-h-14 w-full rounded-2xl bg-gradient-to-r from-violet-600 to-blue-500 font-bold text-white shadow-lg shadow-violet-200"
           type="submit"
         >
-          提交打卡 · +20 积分
+          提交闯关任务 · +20经验值
         </button>
       </form>
     </div>

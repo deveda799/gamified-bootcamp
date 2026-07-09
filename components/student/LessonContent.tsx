@@ -5,7 +5,7 @@ import type { LessonDetail } from "@/lib/application/ports/course-repository";
 export function LessonContent({ lesson }: { lesson: LessonDetail }) {
   return (
     <Card>
-      <p className="text-xs font-semibold text-action">课程学习</p>
+      <p className="text-xs font-semibold text-action">关卡学习</p>
       <h1 className="mt-2 text-2xl font-bold text-forest">{lesson.title}</h1>
       {lesson.summary ? (
         <p className="mt-2 text-sm text-muted">{lesson.summary}</p>

@@ -13,13 +13,14 @@ export type CurrentLevel = {
 };
 
 export const defaultLevelRules: LevelRule[] = [
-  { levelNo: 1, levelName: "觉醒者", minPoints: 0 },
+  { levelNo: 1, levelName: "新芽", minPoints: 0 },
   { levelNo: 2, levelName: "探索者", minPoints: 100 },
   { levelNo: 3, levelName: "架构师", minPoints: 250 },
-  { levelNo: 4, levelName: "训练师", minPoints: 450 },
+  { levelNo: 4, levelName: "猎人", minPoints: 450 },
   { levelNo: 5, levelName: "炼金师", minPoints: 700 },
-  { levelNo: 6, levelName: "创造者", minPoints: 1000 },
-  { levelNo: 7, levelName: "超级个体", minPoints: 1500 }
+  { levelNo: 6, levelName: "设计师", minPoints: 1000 },
+  { levelNo: 7, levelName: "创造者", minPoints: 1250 },
+  { levelNo: 8, levelName: "超级个体", minPoints: 1500 }
 ];
 
 export function calculateCurrentLevel(
@@ -41,4 +42,3 @@ export function calculateCurrentLevel(
     pointsToNextLevel: next ? Math.max(next.minPoints - totalPoints, 0) : 0
   };
 }
-

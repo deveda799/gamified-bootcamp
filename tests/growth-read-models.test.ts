@@ -27,16 +27,16 @@ test("maps point ledger rows into timeline items", () => {
 test("maps badge definitions and awards into earned and locked groups", () => {
   const result = mapBadgeWall(
     [
-      { id: "badge-1", name: "觉醒者徽章", description: "完成首次课程学习", position: 1 },
-      { id: "badge-2", name: "坚持王", description: "累计签到 7 天", position: 2 }
+      { id: "badge-1", name: "觉醒者", description: "完成首次关卡", position: 1 },
+      { id: "badge-2", name: "飞轮启动者", description: "累计签到 7 天", position: 2 }
     ],
     [{ badge_id: "badge-1", awarded_at: "2026-06-23T02:00:00.000Z" }]
   );
 
   assert.equal(result.earned.length, 1);
-  assert.equal(result.earned[0].name, "觉醒者徽章");
+  assert.equal(result.earned[0].name, "觉醒者");
   assert.equal(result.locked.length, 1);
-  assert.equal(result.locked[0].name, "坚持王");
+  assert.equal(result.locked[0].name, "飞轮启动者");
 });
 
 test("maps leaderboard rows and respects anonymous display", () => {
@@ -61,4 +61,3 @@ test("maps leaderboard rows and respects anonymous display", () => {
     }
   ]);
 });
-

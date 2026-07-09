@@ -34,10 +34,9 @@ export function CompleteLessonButton({ lessonId }: { lessonId: string }) {
         onClick={handleComplete}
         type="button"
       >
-        {isLoading ? "记录中…" : "完成学习 +5"}
+        {isLoading ? "记录中…" : "完成关卡 +5"}
       </button>
       <ActionMessage feedback={feedback} />
     </div>
   );
 }
-

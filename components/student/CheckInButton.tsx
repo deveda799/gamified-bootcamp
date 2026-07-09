@@ -38,10 +38,9 @@ export function CheckInButton() {
         onClick={handleCheckIn}
         type="button"
       >
-        {isLoading ? "签到中…" : "今日签到 +2"}
+        {isLoading ? "签到中…" : "今日签到"}
       </button>
       <ActionMessage feedback={feedback} />
     </div>
   );
 }
-

@@ -27,7 +27,7 @@ export function PointsListClient() {
         }
         setItems(result.data.items);
       })
-      .catch(() => setError("积分流水加载失败"))
+      .catch(() => setError("经验值记录加载失败"))
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -38,8 +38,8 @@ export function PointsListClient() {
   if (items.length === 0) {
     return (
       <Card>
-        <p className="font-semibold text-forest">暂无积分记录</p>
-        <p className="mt-2 text-sm text-muted">完成签到、课程和作业后会在这里展示。</p>
+        <p className="font-semibold text-forest">暂无经验值记录</p>
+        <p className="mt-2 text-sm text-muted">完成签到、关卡和闯关任务后会在这里展示。</p>
       </Card>
     );
   }
@@ -60,4 +60,3 @@ export function PointsListClient() {
     </div>
   );
 }
-

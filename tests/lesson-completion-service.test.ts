@@ -98,7 +98,7 @@ test("returns new badge names when lesson completion reaches badge criteria", as
     repository
   });
 
-  assert.deepEqual(result.newBadges, ["觉醒者徽章"]);
+  assert.deepEqual(result.newBadges, ["觉醒者"]);
   assert.equal(calls.awardBadge, 1);
 });
 
@@ -120,4 +120,3 @@ test("throws a clear error when completing a lesson without active enrollment", 
     /NO_ACTIVE_ENROLLMENT/
   );
 });
-

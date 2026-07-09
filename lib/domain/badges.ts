@@ -12,12 +12,16 @@ type BadgeRule = {
 
 const v1BadgeRules: BadgeRule[] = [
   {
-    name: "觉醒者徽章",
+    name: "觉醒者",
     isEarned: (input) => input.completedLessons >= 1
   },
   {
+    name: "自我探索家",
+    isEarned: (input) => input.completedLessons >= 2
+  },
+  {
     name: "人生架构师",
-    isEarned: (input) => input.completedLessons >= 5
+    isEarned: (input) => input.completedLessons >= 4
   },
   {
     name: "项目猎人",
@@ -28,19 +32,19 @@ const v1BadgeRules: BadgeRule[] = [
     isEarned: (input) => input.submittedAssignments >= 5
   },
   {
-    name: "数字分身创造者",
+    name: "Skill设计师",
     isEarned: (input) => input.totalPoints >= 700
   },
   {
-    name: "内容创造者",
+    name: "AI助理创造者",
     isEarned: (input) => input.totalPoints >= 1000
   },
   {
-    name: "坚持王",
+    name: "飞轮启动者",
     isEarned: (input) => input.checkInDays >= 7
   },
   {
-    name: "超级个体",
+    name: "AI超级个体",
     isEarned: (input) => input.totalPoints >= 1500
   }
 ];
@@ -50,4 +54,3 @@ export function getEarnedBadgeNames(input: BadgeProgressInput): string[] {
     .filter((rule) => rule.isEarned(input))
     .map((rule) => rule.name);
 }
-
